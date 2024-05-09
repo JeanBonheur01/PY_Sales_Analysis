@@ -5,6 +5,7 @@
 - [Problem Statement](#problem-satement)
 - [Data Sources](#data-sources)
 - [Tools](#tools)
+- [Data Cleaning](#data-cleaning)
 - [Questions and PY codes](#questions-and-py-codes)
 - [Results/Findings](resultsfindings)
 - [Recommendations](#recommendations)
@@ -21,6 +22,16 @@ The primary data used for this analysis consists of the CSV monthly datasets, wh
 ### Tools
 
 - Visual Studio Code: The tool is a code editor optimized for building and debugging modern web and cloud applications. It integrates different code editors, such as Python and Jupyter Notebooks, which were activated/enabled to conduct this analysis within Visual Studio Code.  [Find here](https://code.visualstudio.com/)
+
+- The analysis was conducted using the functionalities of Python's pandas and Matplotlib.
+
+### Data Cleaning
+
+The project in Visual Studio Code began by creating and cleaning the all_data. These tasks were iterative, meaning data cleaning was performed based on analysis questions and whenever necessary to answer these questions. Tasks during this section included: 
+
+- Dropping NaN values from the DataFrame
+- Removing rows based on a condition
+- Changing the types of columns (to_numeric, to_datetime, astype)
   
 ### Questions and PY codes
 1. Which month yielded the highest sales? How much revenue was generated during that month?
@@ -129,16 +140,50 @@ plt.show()
 <img width="1440" alt="PriceVSqtOrd_Prod" src="https://github.com/JeanBonheur01/PY_Sales_Analysis/assets/131664311/15b0b943-78a5-4d5c-91fe-996201bb4cc5">
 
 ### Results/Findings
-- Finding 1: December was the best selling month followed by october, april, november and may. January was the lowest month for sales.
-- Finding 2: San Francisco is the city with the highest sales, followed by Los Angeles and New York City. Portland has the lowest performance
-- Finding 3: Customers order more at midday, between 11 and 13 o'clock, as well as in the evening, between 18 and 20 o'clock. The company sells very little at night, and sales begin to increase again when the workday starts at approximately 6 o'clock.
-
-Answer to question 3: Before 11 o'clock and between 18 o'clock should be the best times to display the advertisement to attract customers to buy more."
-- Finding 4: The most two corelated products sell togethet is Iphone & Lightning Charging Cable, etc. This information can help the company to structure its products offering and promotions.
-- Finding 5: AAA Batteries (4-pack) was the most solt item, followed by AA Bateries and USB-C Charging, etc
-We can note that items with lower prices are also highly sold, but this assumption doesn't apply to all products. For example, "Wired Headphones" are cheaper than the Lightning Charging Cable, yet the latter has higher sales. Macbooks are more expansive than LG Dryer, but Macbooks sell better than the latter. Thus, cheaper products are generally the best-selling ones, but this is not always the case, the are other additional factors.
+1. December was the best-selling month, followed by October, April, November and May. January had the lowest sales.
+   
+2. San Fransisco has the highest sales, followed by Los Angeles and New York City. Portland has the lowest performance.
+   
+3. Customers order more at midday, between 11 a.m. and 1 p.m., as well as in the evening, between 6 p.m. and 8 p.m. The company sells very little at night, and sales begin to increase again around 6 a.m. when the workday starts.
+   
+4. The two most correlated products sold togheter are iPhone & Lightning Charging Cable, etc.
+5. AAA Batteries (4-pack) was the most sold item, followed by AA Batteries and USB-C Charging, etc. Items with lower prices are mostly highly sold, but this assumption doesn´t apply to all products. For example MacBooks are more expensive than LG Dryers, but MacBooks sell better than the latter. Thus, cheaper products are generally the best-selling ones, but this is not always the case; the are additional factors.  
 
 ### Recommendations
+
+#### 1. Price Optimization
+
+The company experienced low revenue at the beginning of the year, a period following the holidays when demand typically decreases. To counteract this decline in sales during this slow period, the company should implement strategies such as offering customized pricing and creating attractive promotions. These initiatives can helst stimilate consumer interest and drive sales during traditionally quieter times.
+  
+While cheaper products tend to sell better overall, the company should also consider other factors such as brand reputation, product quality, and customer preferences when setting prices. Conducting price sensitive analysis can help optimize pricing strategies for different product categories. 
+
+#### 2. Targeted Advertising
+
+Since midday and early evening are peak times for customer orders, the company should focus its advertising efforts during these periods to maximize customer engagement and increase sales. 
+
+#### 3. Product Bundling
+
+Given the insight into correlated products, the company can create bundled offers or promotions to encourage customers to purchase complementary items together. For exmaple, offering discounts on iPhone & Lightning Charging Cable when purchased with other related accessories. 
+
+#### 4. Optimized Product Offerings
+
+With the knowledge of the best-selling items and their correlations, the company can optimize its products offerings by prioritizing the promotion of high-demand products. This can include highlighting best-selling items on the website, in marketing campaigns, and in-store displays. 
+
+#### 5. Inventory Management
+
+Understanding sales trends by month and city can help the company better manage its inventory. By adjusting inventory levels to match expected demand fluctuations, the company can minimize stockouts and excess inventory, leading to improve efficiency and cost savings. 
+
+#### 6. Customer Engagement
+
+The company can use insights from the data to enhance customer engagement strategies. This can include personalized recommendations based on past purchases, targeted email compaigns, or loyalty programs to incentivize repeat purchases. 
+
+#### 7. Market Expansion
+
+Since San Francisco had been identified as the city with the highest sales, the company could consider expanding its presence in this market or replicating successful strategies in other cities with similar characteristics. 
+
 ### Conclusion 
+
+Through comprehensive analysis of sales data, it is evident that the company exhibits seasonal sales patterns, with peaks observed during certain months and in specific cities. By leveraging insights such as peak selling times, correlated product purchases, and best-selling items, the company can strategically optimize its marketing, pricing, and inventory management strategies to capitalize on opportunities for revenue growth. 
+Additionally focusing on targeted advertising, product bundling, and personalized promotions can further enhance customer engagement and drive sales during slower periods. Overall, these findings underscore the importance of data-driven decision-making in maximizing sales performance and fostering business success. 
 
 💻🖱️🤖🖱️🤖💻
