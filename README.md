@@ -34,7 +34,7 @@ results.head(12)
 
 2. Which city recorded the highest number of sales?
 
-```
+```py
 def get_city(address): 
    return address.split(',')[1]
 
@@ -51,7 +51,7 @@ results
 
 3. At what time should we display advertisements to maximize the likelihood of customers buying our product?
 
-```
+```py
 all_data['Hour'] = all_data['Order Date'].dt.hour
 all_data['Minute'] = all_data['Order Date'].dt.minute
 all_data.head()
@@ -60,7 +60,7 @@ all_data.head()
 
 4. Which products are frequently purchased togheter?
 
-```
+```py
 df = all_data[all_data['Order ID'].duplicated(keep=False)].copy()
 df.loc[:, 'Grouped_product'] = df.groupby('Order ID')['Product'].transform(lambda x: ','.join(x))
 df = df[['Order ID', 'Grouped_product']].drop_duplicates()
@@ -84,7 +84,7 @@ for key, value in count.most_common(10):
 
 - Step 1: Summarize the quantity ordered based on grouping by the product
 
-```
+```py
 product_group = all_data.groupby('Product')['Quantity Ordered'].sum().sort_values(ascending=False)
 
 product_group = all_data.groupby('Product')['Quantity Ordered'].sum().reset_index()
@@ -105,7 +105,7 @@ plt.show()
 
 - Step 2: Finding why these products sold the most.
 
-```
+```py
 all_data['Price Each'] = pd.to_numeric(all_data['Price Each'], errors='coerce')
 prices = all_data.groupby('Product')['Price Each'].mean()
 
