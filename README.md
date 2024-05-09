@@ -25,18 +25,109 @@ The primary data used for this analysis consists of the CSV monthly datasets, wh
 ### Questions and PY codes
 1. Which month yielded the highest sales? How much revenue was generated during that month?
 
-'''
+```
 results = all_data.groupby('Month').sum()
 results.head(12)
-'''
+```
 
 <img width="1440" alt="Monthly_sales" src="https://github.com/JeanBonheur01/PY_Sales_Analysis/assets/131664311/9b2b249c-cdd6-4439-9a74-c48c388d60a5">
 
-3. Which city recorded the highest number of sales? 
-4. At what time should we display advertisements to maximize the likelihood of customers buying our product?
-5. Which products are frequently purchased togheter?
-6. Which product had the highest sales volume? What factors contributed to its success?
-   
+2. Which city recorded the highest number of sales?
+
+```
+def get_city(address): 
+   return address.split(',')[1]
+
+def get_state(address): 
+   return address.split(',')[2].split(' ')[1]
+
+all_data['City_state'] = all_data['Purchase Address'].apply(lambda x: get_city(x) + ' (' + get_state(x) + ')')
+
+results= all_data.groupby('City_state').sum()
+results
+```
+
+<img width="1440" alt="Sales_by_city" src="https://github.com/JeanBonheur01/PY_Sales_Analysis/assets/131664311/eabf35b3-0fec-4a9b-8e66-45f492a2d255">
+
+3. At what time should we display advertisements to maximize the likelihood of customers buying our product?
+
+```
+all_data['Hour'] = all_data['Order Date'].dt.hour
+all_data['Minute'] = all_data['Order Date'].dt.minute
+all_data.head()
+```
+<img width="1440" alt="Hourly_sales" src="https://github.com/JeanBonheur01/PY_Sales_Analysis/assets/131664311/378fe6f4-6677-4cd2-b59a-e827c46db753">
+
+4. Which products are frequently purchased togheter?
+
+```
+df = all_data[all_data['Order ID'].duplicated(keep=False)].copy()
+df.loc[:, 'Grouped_product'] = df.groupby('Order ID')['Product'].transform(lambda x: ','.join(x))
+df = df[['Order ID', 'Grouped_product']].drop_duplicates()
+print(df.head().to_string(index=False, max_colwidth=1000))
+
+from itertools import combinations
+from collections import Counter
+
+count = Counter()
+
+for row in df['Grouped_product']: 
+    row_list = row.split(',')
+    count.update(Counter(combinations(row_list, 2)))
+    
+for key, value in count.most_common(10):
+    print (key, value)
+```
+<img width="1440" alt="Corelated_products" src="https://github.com/JeanBonheur01/PY_Sales_Analysis/assets/131664311/c386f6df-885a-4631-9056-73df3b760001">
+
+5. Which product had the highest sales volume? What factors contributed to its success?
+
+- Step 1: Summarize the quantity ordered based on grouping by the product
+
+```
+product_group = all_data.groupby('Product')['Quantity Ordered'].sum().sort_values(ascending=False)
+
+product_group = all_data.groupby('Product')['Quantity Ordered'].sum().reset_index()
+product_group_sorted = product_group.sort_values(by='Quantity Ordered', ascending=False)
+
+plt.figure(figsize=(10, 6))
+plt.bar(product_group_sorted['Product'], product_group_sorted['Quantity Ordered'])
+
+plt.xlabel('Product')
+plt.ylabel('Quantity Ordered')
+plt.title('Quantity Ordered per Product')
+plt.xticks(rotation=90)
+
+plt.tight_layout()
+plt.show()
+```
+<img width="1440" alt="Qt_ordered_products" src="https://github.com/JeanBonheur01/PY_Sales_Analysis/assets/131664311/c305e4ec-7e23-4481-8896-4ed9e6b27b89">
+
+- Step 2: Finding why these products sold the most.
+
+```
+all_data['Price Each'] = pd.to_numeric(all_data['Price Each'], errors='coerce')
+prices = all_data.groupby('Product')['Price Each'].mean()
+
+prices = all_data.groupby('Product')['Price Each'].mean()
+
+fig, ax1 = plt.subplots()
+
+plt.xticks(rotation='vertical')
+
+ax1.bar(prices.index, all_data.groupby('Product')['Quantity Ordered'].sum(), color='g')
+ax1.set_xlabel('Product')
+ax1.set_ylabel('Quantity Ordered', color='g')
+
+ax2 = ax1.twinx()
+ax2.plot(prices.index, prices, 'b-')
+ax2.set_ylabel('Price ($)', color='b')
+
+plt.show()
+```
+
+<img width="1440" alt="PriceVSqtOrd_Prod" src="https://github.com/JeanBonheur01/PY_Sales_Analysis/assets/131664311/15b0b943-78a5-4d5c-91fe-996201bb4cc5">
+
 ### Results/Findings
 - Finding 1: December was the best selling month followed by october, april, november and may. January was the lowest month for sales.
 - Finding 2: San Francisco is the city with the highest sales, followed by Los Angeles and New York City. Portland has the lowest performance
