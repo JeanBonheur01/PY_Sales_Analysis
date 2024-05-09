@@ -25,7 +25,7 @@ The primary data used for this analysis consists of the CSV monthly datasets, wh
 ### Questions and PY codes
 1. Which month yielded the highest sales? How much revenue was generated during that month?
 
-```
+```py
 results = all_data.groupby('Month').sum()
 results.head(12)
 ```
